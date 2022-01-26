@@ -9,7 +9,7 @@ var palyer, playerBase, playerArcher;
 var playerArrows = [];
 var numberOfArrows = 10;
 var board1, board2;
-
+var score=0;
 function preload() {
   backgroundImg = loadImage("./assets/background.png");
   baseimage = loadImage("./assets/base.png");
@@ -48,7 +48,11 @@ function draw() {
   background(backgroundImg );
   image(baseimage,playerBase.position.x,playerBase.position.y,180,150)
   image(playerimage,player.position.x,player.position.y,50,180)
-
+ fill("white")
+  textAlign("center")
+  textSize(30)
+  text("remaining arrow"+numberOfArrows,200,100)
+ 
   Engine.update(engine);
 
   playerArcher.display();
@@ -78,7 +82,7 @@ function draw() {
       );
 
       if (board1Collision.collided || board2Collision.collided) {
-        console.log("yes");
+       score+=5;
       }
 
       //[optional code to add trajectory of arrow]
@@ -109,7 +113,7 @@ function draw() {
   text("Remaining Arrows : " + numberOfArrows, 200, 100);
 
   if (numberOfArrows == 0) {
-    console.log("arrow bucket is empty")
+    gameOver()
   }
 }
 
@@ -139,3 +143,13 @@ function keyReleased() {
   }
 }
 
+function gameOver()
+{ swal( { 
+  title: `Game Over!!!`,
+   text: "Thanks for playing!!",
+  
+  imageUrl: "https://raw.githubusercontent.com/vishalgaddam873/PiratesInvision/main/assets/board.png",
+  imageSize: "150x150",
+  confirmButtonText: "Play Again" },
+       function(isConfirm) 
+       { if (isConfirm) { location.reload(); } } ); }
